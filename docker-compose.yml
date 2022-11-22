@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      .env
+    image: ffg_fe
+    ports:
+      - "80:80"
+    command: /entrypoint.sh
+    volumes:
+      - ./@cinnamon/design-system/src:/cds/src
+      - ./@cinnamon/design-system/types:/cds/types
+      - ./prj_flax_ffg_prod_fe/src:/ffg/src
+      - ./prj_flax_ffg_prod_fe/public:/ffg/public
+      - ./prj_flax_ffg_prod_fe/config.d/config.js:/ffg/config.d/config.js
+      - ./prj_flax_ffg_prod_fe/config.d/config.js:/usr/share/nginx/html/cfg/config.js
+      - ./entrypoint.sh:/entrypoint.sh
+    tty: true
